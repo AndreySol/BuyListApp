@@ -10,7 +10,6 @@ gen/
 out/
 
 .gradle/
-gradle/
 build/
 
 local.properties
