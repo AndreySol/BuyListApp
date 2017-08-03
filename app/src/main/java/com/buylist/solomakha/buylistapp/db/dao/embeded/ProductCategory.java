@@ -1,16 +1,15 @@
-package com.buylist.solomakha.buylistapp.db.dao;
+package com.buylist.solomakha.buylistapp.db.dao.embeded;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
 
 import com.buylist.solomakha.buylistapp.db.model.Category;
 import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.db.model.Unit;
 
 import java.util.List;
 
-/**
- * Created by asolomakha on 8/1/2017.
- */
+import okhttp3.internal.Util;
 
 public class ProductCategory
 {
@@ -18,5 +17,8 @@ public class ProductCategory
     public Product product;
 
     @Relation(entity = Category.class, entityColumn = "id", parentColumn = "categoryId")
-    public List<Category> category;
+    public List<Category> categories;
+
+    @Relation(entity = Unit.class, entityColumn = "id", parentColumn = "unitId")
+    public List<Unit> units;
 }

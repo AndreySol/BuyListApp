@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.buylist.solomakha.buylistapp.db.dao.BasketDao;
+import com.buylist.solomakha.buylistapp.db.dao.BasketProductDao;
 import com.buylist.solomakha.buylistapp.db.dao.CategoryDao;
 import com.buylist.solomakha.buylistapp.db.dao.ProductDao;
 import com.buylist.solomakha.buylistapp.db.dao.UnitDao;
@@ -16,7 +17,7 @@ import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.db.model.Unit;
 
 
-@Database(entities = {Basket.class, BasketProduct.class, Category.class, Product.class, Unit.class}, version = 1)
+@Database(exportSchema = false, entities = {Basket.class, BasketProduct.class, Category.class, Product.class, Unit.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase
 {
     static AppDatabase INSTANCE;
@@ -31,7 +32,12 @@ public abstract class AppDatabase extends RoomDatabase
     }
 
     public abstract BasketDao basketDao();
+
     public abstract CategoryDao categoryDao();
+
     public abstract ProductDao productDao();
+
     public abstract UnitDao unitDao();
+
+    public abstract BasketProductDao basketProductDao();
 }

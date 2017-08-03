@@ -6,22 +6,23 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.buylist.solomakha.buylistapp.db.model.Category;
+import com.buylist.solomakha.buylistapp.db.model.BasketProduct;
 
 import java.util.List;
 
 @Dao
-public interface CategoryDao
+public interface BasketProductDao
 {
-    @Query("SELECT * FROM category")
-    List<Category> getAll();
+    @Query("SELECT * FROM basketProduct")
+    List<BasketProduct> getAll();
 
-    @Query("SELECT * FROM category WHERE id == :categoryId")
-    Category getById(long categoryId);
+    @Query("SELECT * FROM basketProduct WHERE id == :basketProductId")
+    BasketProduct getById(long basketProductId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(Category category);
+    long insert(BasketProduct basketProduct);
 
     @Delete
-    void delete(Category category);
+    void delete(BasketProduct basket);
+
 }

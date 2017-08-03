@@ -2,7 +2,6 @@ package com.buylist.solomakha.buylistapp.ui;
 
 import android.app.ProgressDialog;
 import android.arch.lifecycle.LifecycleActivity;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
 import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 import com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter;
 import com.buylist.solomakha.buylistapp.ui.adapter.FragmentWorker;
-import com.buylist.solomakha.buylistapp.viewmodels.BasketLiveDataViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

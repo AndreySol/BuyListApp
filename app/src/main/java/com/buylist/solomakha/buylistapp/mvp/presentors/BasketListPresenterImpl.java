@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.buylist.solomakha.buylistapp.MainApp;
 import com.buylist.solomakha.buylistapp.db.AppDatabase;
-import com.buylist.solomakha.buylistapp.db.dao.ProductCategory;
+import com.buylist.solomakha.buylistapp.db.dao.embeded.BasketProducts;
+import com.buylist.solomakha.buylistapp.db.dao.embeded.ProductCategory;
+import com.buylist.solomakha.buylistapp.db.model.BasketProduct;
 import com.buylist.solomakha.buylistapp.db.model.Category;
 import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.db.model.Unit;
@@ -20,15 +22,11 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import rx.Notification;
-import rx.Observable;
-import rx.Observer;
 import rx.Single;
 import rx.SingleSubscriber;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class BasketListPresenterImpl implements BasketListPresenter
@@ -193,21 +191,29 @@ public class BasketListPresenterImpl implements BasketListPresenter
 
                 database.unitDao().insert(new Unit("TestUnit1"));
                 long testUnit2Id = database.unitDao().insert(new Unit("TestUnit2"));
+                database.unitDao().insert(new Unit("TestUnit3"));
 
+                Product product1 = new Product();
+                product1.setName("TestProduct1");
+                product1.setBought(false);
+                product1.setPriority(false);
+                product1.setQuantity(1);
+                product1.setCategoryId(testCategory2Id);
+                product1.setUnitId(testUnit2Id);
 
-                Product product = new Product();
-                product.setName("TestProduct1");
-                product.setBought(false);
-                product.setPriority(false);
-                product.setQuantity(1);
-                product.setCategoryId(testCategory2Id);
-                product.setUnitId(testUnit2Id);
+                Product product2 = new Product();
+                product2.setName("TestProduct1");
+                product2.setBought(false);
+                product2.setPriority(false);
+                product2.setQuantity(1);
+                product2.setCategoryId(testCategory2Id);
+                product2.setUnitId(testUnit2Id);
 
-                long testProduct1Id = database.productDao().insert(product);
+                long testProduct1Id = database.productDao().insert(product1);
+                long testProduct2Id = database.productDao().insert(product2);
 
-                Product product1 = database.productDao().getById(testProduct1Id);
-
-                ProductCategory productCategory = database.productDao().getProductCategory(testProduct1Id);
+                database.basketProductDao().insert(new BasketProduct(testBasket2Id, testProduct1Id));
+                database.basketProductDao().insert(new BasketProduct(testBasket2Id, testProduct2Id));
 
                 return true;
             }

@@ -9,12 +9,17 @@ public class BasketProduct
 {
     @PrimaryKey(autoGenerate = true)
     private long id;
-    private String name;
     @ForeignKey(entity = Basket.class, childColumns = "basketId", parentColumns = "id")
-    private int basketId;
+    private long basketId;
     @ForeignKey(entity = Product.class, childColumns = "productId", parentColumns = "id")
-    private int productId;
+    private long productId;
     private boolean bought;
+
+    public BasketProduct(Long basketId, Long productId)
+    {
+        this.basketId = basketId;
+        this.productId = productId;
+    }
 
     public long getId()
     {
@@ -26,32 +31,22 @@ public class BasketProduct
         this.id = id;
     }
 
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public int getBasketId()
+    public long getBasketId()
     {
         return basketId;
     }
 
-    public void setBasketId(int basketId)
+    public void setBasketId(long basketId)
     {
         this.basketId = basketId;
     }
 
-    public int getProductId()
+    public long getProductId()
     {
         return productId;
     }
 
-    public void setProductId(int productId)
+    public void setProductId(long productId)
     {
         this.productId = productId;
     }

@@ -10,10 +10,6 @@ import com.buylist.solomakha.buylistapp.db.model.Unit;
 
 import java.util.List;
 
-/**
- * Created by asolomakha on 8/1/2017.
- */
-
 @Dao
 public interface UnitDao
 {
