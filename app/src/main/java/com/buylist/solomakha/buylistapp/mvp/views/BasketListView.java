@@ -1,6 +1,6 @@
 package com.buylist.solomakha.buylistapp.mvp.views;
 
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 
 import java.util.List;
 

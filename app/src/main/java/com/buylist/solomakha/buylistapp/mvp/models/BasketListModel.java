@@ -1,6 +1,7 @@
 package com.buylist.solomakha.buylistapp.mvp.models;
 
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
+
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ public interface BasketListModel
 {
     Single<List<Basket>> getBasketList();
 
-    Single<Integer> deleteBasket(long id);
+    Single<Integer> deleteBasket(Basket basket);
 
     Single<Integer> editBasket(Basket basket);
 
     Single<Boolean> createTestValues();
 
-    Single<Basket> createBasket(String basketName);
+    Single<Long> createBasket(String basketName);
 }

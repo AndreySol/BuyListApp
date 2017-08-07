@@ -3,20 +3,12 @@ package com.buylist.solomakha.buylistapp.mvp.presentors;
 import android.util.Log;
 
 import com.buylist.solomakha.buylistapp.MainApp;
-import com.buylist.solomakha.buylistapp.db.AppDatabase;
-import com.buylist.solomakha.buylistapp.db.dao.embeded.BasketProducts;
-import com.buylist.solomakha.buylistapp.db.dao.embeded.ProductCategory;
-import com.buylist.solomakha.buylistapp.db.model.BasketProduct;
-import com.buylist.solomakha.buylistapp.db.model.Category;
-import com.buylist.solomakha.buylistapp.db.model.Product;
-import com.buylist.solomakha.buylistapp.db.model.Unit;
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.models.BasketListModel;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,9 +26,6 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Inject
     BasketListModel basketListModel;
 
-    @Inject
-    AppDatabase database;
-
     private WeakReference<BasketListView> basketListView;
 
     public BasketListPresenterImpl()
@@ -52,6 +41,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Override
     public void loadBasketList(final boolean showProgress)
     {
+        Logger.getLogger("TestLogger").log(Level.INFO, "loadBasketList");
         if (showProgress)
         {
             basketListView.get().showProgress(true);
@@ -66,6 +56,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void onSuccess(List<Basket> value)
                     {
+                        Logger.getLogger("TestLogger").log(Level.INFO, "onSuccess: " + value.size());
                         Log.i("TestRx", "subscribe Thread: " + Thread.currentThread().getId());
                         basketListView.get().showBasketList(value);
                         if (showProgress)
@@ -88,13 +79,13 @@ public class BasketListPresenterImpl implements BasketListPresenter
     }
 
     @Override
-    public void deleteBasket(long id, final boolean showProgress)
+    public void deleteBasket(Basket basket, final boolean showProgress)
     {
         if (showProgress)
         {
             basketListView.get().showProgress(true);
         }
-        Single.concat(basketListModel.deleteBasket(id), basketListModel.getBasketList())
+        Single.concat(basketListModel.deleteBasket(basket), basketListModel.getBasketList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .last()
@@ -103,7 +94,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void call(Object o)
                     {
-                        basketListView.get().showBasketList((List<Basket>)o);
+                        basketListView.get().showBasketList((List<Basket>) o);
                         if (showProgress)
                         {
                             basketListView.get().showProgress(false);
@@ -144,7 +135,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
                         {
                             basketListView.get().showProgress(false);
                         }
-                        basketListView.get().showBasketList((List<Basket>)o);
+                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
     }
@@ -156,7 +147,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
         {
             basketListView.get().showProgress(true);
         }
-        /*Single.concat(basketListModel.createTestValues(), basketListModel.getBasketList())
+        Single.concat(basketListModel.createTestValues(), basketListModel.getBasketList())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .last()
@@ -169,65 +160,9 @@ public class BasketListPresenterImpl implements BasketListPresenter
                         {
                             basketListView.get().showProgress(false);
                         }
-                        basketListView.get().showBasketList((List<Basket>)o);
-                    }
-                });*/
-
-
-        Single.fromCallable(new Callable<Boolean>()
-        {
-            @Override
-            public Boolean call()
-            {
-                //database.query("DELETE FROM buyDatabase", null);
-
-                database.basketDao().insert(new com.buylist.solomakha.buylistapp.db.model.Basket("TestBasket1"));
-                long testBasket2Id = database.basketDao().insert(new com.buylist.solomakha.buylistapp.db.model.Basket("TestBasket2"));
-                database.basketDao().insert(new com.buylist.solomakha.buylistapp.db.model.Basket("TestBasket3"));
-
-                database.categoryDao().insert(new Category("TestCategory1"));
-                long testCategory2Id = database.categoryDao().insert(new Category("TestCategory2"));
-                database.categoryDao().insert(new Category("TestCategory3"));
-
-                database.unitDao().insert(new Unit("TestUnit1"));
-                long testUnit2Id = database.unitDao().insert(new Unit("TestUnit2"));
-                database.unitDao().insert(new Unit("TestUnit3"));
-
-                Product product1 = new Product();
-                product1.setName("TestProduct1");
-                product1.setBought(false);
-                product1.setPriority(false);
-                product1.setQuantity(1);
-                product1.setCategoryId(testCategory2Id);
-                product1.setUnitId(testUnit2Id);
-
-                Product product2 = new Product();
-                product2.setName("TestProduct1");
-                product2.setBought(false);
-                product2.setPriority(false);
-                product2.setQuantity(1);
-                product2.setCategoryId(testCategory2Id);
-                product2.setUnitId(testUnit2Id);
-
-                long testProduct1Id = database.productDao().insert(product1);
-                long testProduct2Id = database.productDao().insert(product2);
-
-                database.basketProductDao().insert(new BasketProduct(testBasket2Id, testProduct1Id));
-                database.basketProductDao().insert(new BasketProduct(testBasket2Id, testProduct2Id));
-
-                return true;
-            }
-        }).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Boolean>()
-                {
-                    @Override
-                    public void call(Boolean aBoolean)
-                    {
-
+                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
-
     }
 
     @Override
@@ -250,7 +185,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
                         {
                             basketListView.get().showProgress(false);
                         }
-                        basketListView.get().showBasketList((List<Basket>)o);
+                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
     }

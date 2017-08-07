@@ -1,11 +1,11 @@
 package com.buylist.solomakha.buylistapp.mvp.models;
 
 import com.buylist.solomakha.buylistapp.MainApp;
+import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.db.model.Category;
+import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.db.model.Unit;
 import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Category;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Product;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Unit;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -42,14 +42,15 @@ public class BasketListModelImpl implements BasketListModel
     }
 
     @Override
-    public Single<Integer> deleteBasket(final long id)
+    public Single<Integer> deleteBasket(final Basket basket)
     {
         return Single.fromCallable(new Callable<Integer>()
         {
             @Override
             public Integer call() throws Exception
             {
-                return storage.deleteBasket(id);
+                storage.deleteBasket(basket);
+                return 0;
             }
         });
     }
@@ -62,7 +63,8 @@ public class BasketListModelImpl implements BasketListModel
             @Override
             public Integer call() throws Exception
             {
-                return storage.editBasket(basket);
+                //return storage.editBasket(basket);
+                return 0;
             }
         });
     }
@@ -75,74 +77,75 @@ public class BasketListModelImpl implements BasketListModel
             @Override
             public Boolean call()
             {
-                Category categoryOthers = storage.createCategory("Others");
-                Category categoryDairy = storage.createCategory("Dairy");
-                Category categoryMeat = storage.createCategory("Meat");
-                Category categoryFruits = storage.createCategory("Fruit");
-                Category categoryAppliances = storage.createCategory("Appliances");
+                storage.createCategory("Others");
+                storage.createCategory("Dairy");
+                storage.createCategory("Meat");
+                long categoryFruitsId = storage.createCategory("Fruit");
 
-                Unit unitKg = storage.createUnit("kg");
-                Unit unitL = storage.createUnit("L.");
-                Unit unitPcs = storage.createUnit("pcs");
+                long categoryAppliancesId = storage.createCategory("Appliances");
 
-                Basket listPostProducts = storage.createBasket("PostProducts");
-                Basket listPostClothes = storage.createBasket("PostClothes");
-                Basket listPostAppliances = storage.createBasket("PostAppliances");
+                long unitKgId = storage.createUnit("kg");
+                storage.createUnit("L.");
+                long unitPcsId = storage.createUnit("pcs");
+
+                long listPostProductsId = storage.createBasket("PostProducts");
+                long listPostClothesId = storage.createBasket("PostClothes");
+                long listPostAppliancesId = storage.createBasket("PostAppliances");
 
                 //ПРОДУКТ:
                 //продукты  привязка к UNIT and CATEGORY
                 //Apple - не внесен  в список
                 Product product = new Product();
                 product.setName("Apple");
-                product.setCategory(categoryFruits);
+                product.setCategoryId(categoryFruitsId);
                 product.setPriority(false);
                 product.setQuantity(2);
-                product.setUnit(unitKg);
-                Product productId = storage.createProduct(product);
-                storage.assignProductToBasket(listPostProducts.getId(), productId.getId());//связка  со списком
+                product.setUnitId(unitKgId);
+                long productId = storage.createProduct(product);
+                storage.assignProductToBasket(listPostProductsId, productId);//связка  со списком
 
                 // Kettle - не внесен  в список
                 Product product1 = new Product();
                 product1.setName("Kettle");
-                product1.setCategory(categoryAppliances);
+                product1.setCategoryId(categoryAppliancesId);
                 product1.setPriority(false);
                 product1.setQuantity(1);
-                product1.setUnit(unitPcs);
-                Product productId1 = storage.createProduct(product1);
-                storage.assignProductToBasket(listPostProducts.getId(), productId1.getId());//связка  со списком
-                storage.assignProductToBasket(listPostClothes.getId(), productId1.getId());//связка  со списком
+                product1.setUnitId(unitPcsId);
+                long productId1 = storage.createProduct(product1);
+                storage.assignProductToBasket(listPostProductsId, productId1);//связка  со списком
+                storage.assignProductToBasket(listPostProductsId, productId1);//связка  со списком
 
                 // Banana -  внесен  в список
                 Product product2 = new Product();
                 product2.setName("Banana");
-                product2.setCategory(categoryFruits);
+                product2.setCategoryId(categoryFruitsId);
                 product2.setPriority(false);
                 product2.setQuantity(1.5f);
-                product2.setUnit(unitKg);
-                Product productId2 = storage.createProduct(product2);
-                storage.assignProductToBasket(listPostProducts.getId(), productId2.getId());//связка  со списком
+                product2.setUnitId(unitKgId);
+                long productId2 = storage.createProduct(product2);
+                storage.assignProductToBasket(listPostProductsId, productId2);//связка  со списком
 
                 // Orange -  внесен  в список
                 Product product3 = new Product();
                 product3.setName("Orange");
-                product3.setCategory(categoryFruits);
+                product3.setCategoryId(categoryFruitsId);
                 product3.setPriority(false);
                 product3.setQuantity(2.5f);
-                product3.setUnit(unitKg);
-                Product productId3 = storage.createProduct(product3);
-                storage.assignProductToBasket(listPostProducts.getId(), productId3.getId());//связка  со списком
+                product3.setUnitId(unitKgId);
+                long productId3 = storage.createProduct(product3);
+                storage.assignProductToBasket(listPostProductsId, productId3);//связка  со списком
                 return true;
             }
         });
     }
 
     @Override
-    public Single<Basket> createBasket(final String basketName)
+    public Single<Long> createBasket(final String basketName)
     {
-        return Single.fromCallable(new Callable<Basket>()
+        return Single.fromCallable(new Callable<Long>()
         {
             @Override
-            public Basket call() throws Exception
+            public Long call() throws Exception
             {
                 return storage.createBasket(basketName);
             }

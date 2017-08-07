@@ -1,12 +1,10 @@
 package com.buylist.solomakha.buylistapp.storage.database.dal;
 
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Category;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Product;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 
-import com.buylist.solomakha.buylistapp.storage.database.entities.Unit;
-
+import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.db.model.Category;
+import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.db.model.Unit;
 
 import java.util.List;
 
@@ -15,19 +13,18 @@ import java.util.List;
  */
 public interface Storage
 {
-    Category createCategory(String categoryName);
+    long createCategory(String categoryName);
     List<Category> getCategories();
-    Category getCategoryById(int id);
+    Category getCategoryById(long id);
 
-    Unit createUnit(String unit);
+    long createUnit(String unit);
     List<Unit> getUnits();
 
-    Product createProduct(Product product);
+    long createProduct(Product product);
     List<Product> getProducts();
 
-    Basket createBasket(String basketName);
-    int deleteBasket(long basketId);
-    int editBasket(Basket basket);
+    long createBasket(String basketName);
+    void deleteBasket(Basket basket);
     List<Basket> getBaskets();
 
     List<Product> getProductsFromBasket(long basketId);

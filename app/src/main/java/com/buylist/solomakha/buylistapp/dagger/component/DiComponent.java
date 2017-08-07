@@ -4,6 +4,7 @@ import com.buylist.solomakha.buylistapp.dagger.module.BasketModule;
 import com.buylist.solomakha.buylistapp.dagger.module.DbModule;
 import com.buylist.solomakha.buylistapp.mvp.models.BasketListModelImpl;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenterImpl;
+import com.buylist.solomakha.buylistapp.storage.database.dal.RoomDatabase;
 import com.buylist.solomakha.buylistapp.ui.ProductListActivity;
 
 import javax.inject.Singleton;
@@ -19,4 +20,6 @@ public interface DiComponent
     void inject(BasketListPresenterImpl comp);
 
     void inject(ProductListActivity comp);
+
+    void inject(RoomDatabase comp);
 }

@@ -16,10 +16,10 @@ import android.widget.Spinner;
 
 import com.buylist.solomakha.buylistapp.MainApp;
 import com.buylist.solomakha.buylistapp.R;
+import com.buylist.solomakha.buylistapp.db.model.Category;
+import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.db.model.Unit;
 import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Category;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Product;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Unit;
 import com.buylist.solomakha.buylistapp.ui.adapter.ExpandableRecyclerListAdapter;
 import com.buylist.solomakha.buylistapp.ui.helper.SimpleItemTouchHelperCallback;
 
@@ -121,8 +121,8 @@ public class ProductListActivity extends AppCompatActivity
                 Product product = new Product();
                 product.setName(productNameEditText.getText().toString());
                 product.setQuantity(Float.valueOf(productQuantityEditText.getText().toString()));
-                product.setUnit(unit);
-                product.setCategory(category);
+                product.setUnitId(unit.getId());
+                product.setCategoryId(category.getId());
 
                 mStorage.createProduct(product);
                 mStorage.assignProductToBasket(basketId, product.getId());
@@ -153,9 +153,11 @@ public class ProductListActivity extends AppCompatActivity
 
         for (Product product : productList)
         {
-            if (!categories.contains(product.getCategory().getName()))
+
+            Category category = mStorage.getCategoryById(product.getCategoryId());
+            if (!categories.contains(category.getName()))
             {
-                categories.add(product.getCategory().getName());
+                categories.add(category.getName());
             }
         }
 
@@ -167,7 +169,8 @@ public class ProductListActivity extends AppCompatActivity
             items.add(headerItem);
             for (Product product : productList)
             {
-                if (category.equals(product.getCategory().getName()))
+                Category productCategory = mStorage.getCategoryById(product.getCategoryId());
+                if (category.equals(productCategory.getName()))
                 {
                     ExpandableRecyclerListAdapter.Item childItem = new ExpandableRecyclerListAdapter.Item();
                     childItem.type = ExpandableRecyclerListAdapter.CHILD;

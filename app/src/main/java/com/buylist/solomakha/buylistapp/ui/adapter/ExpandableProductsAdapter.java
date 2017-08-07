@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Product;
+import com.buylist.solomakha.buylistapp.db.model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,7 +144,8 @@ public class ExpandableProductsAdapter extends BaseExpandableListAdapter
         }
 
         expListItemName.setText(product.getName());
-        expListItemQuantity.setText(String.valueOf(product.getQuantity()) + " " + product.getUnit().getName());
+
+        expListItemQuantity.setText(String.valueOf(product.getQuantity()) + " " + product.getUnitId());
         return convertView;
     }
 

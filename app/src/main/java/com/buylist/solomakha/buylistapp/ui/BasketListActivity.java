@@ -13,14 +13,16 @@ import android.widget.Toast;
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketListViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketListActivityBinding;
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 import com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter;
 import com.buylist.solomakha.buylistapp.ui.adapter.FragmentWorker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_DELETE_ID;
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_EDIT_ID;
@@ -50,11 +52,15 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
 
         mPresenter = fragmentWorker.getPresenter();
 
+        Logger.getLogger("TestLogger").log(Level.INFO, "" + mPresenter);
+
         BasketListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.basket_list_activity);
         binding.setViewModel(new BasketListViewModel(mPresenter));
         initListView(binding.basketRecyclerList);
 
         initProgressDialog();
+
+        Logger.getLogger("TestLogger").log(Level.INFO, "onCreate");
     }
 
     private void initListView(RecyclerView recyclerView)
@@ -76,6 +82,8 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
     protected void onResume()
     {
         super.onResume();
+
+        Logger.getLogger("TestLogger").log(Level.INFO, "onResume");
         if (mInProgress)
         {
             showProgress(true);
@@ -89,6 +97,7 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
     @Override
     public void showBasketList(List<Basket> basketList)
     {
+        Logger.getLogger("TestLogger").log(Level.INFO, "showBasketList");
         mBasketList = basketList;
         // Refresh listView
         mBasketAdapter.refresh(mBasketList);
@@ -134,11 +143,11 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
         switch (item.getItemId())
         {
             case MENU_CONTEXT_EDIT_ID:
-                mPresenter.openEditBasketDialog(new Basket(mBasketList.get(item.getOrder())));
-                //showEditBasketDialog(mBasketList.get(item.getOrder()));
+                mPresenter.openEditBasketDialog(new Basket(mBasketList.get(item.getOrder()).getName()));
+                showEditBasketDialog(mBasketList.get(item.getOrder()));
                 return true;
             case MENU_CONTEXT_DELETE_ID:
-                mPresenter.deleteBasket(mBasketList.get(item.getOrder()).getId(), true);
+                mPresenter.deleteBasket(mBasketList.get(item.getOrder()), true);
                 return true;
             default:
                 return super.onContextItemSelected(item);

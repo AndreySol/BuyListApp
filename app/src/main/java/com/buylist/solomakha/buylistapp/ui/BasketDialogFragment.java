@@ -11,8 +11,8 @@ import android.view.View;
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketDialogBinding;
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 
 public class BasketDialogFragment extends DialogFragment implements DialogInterface.OnClickListener
 {
@@ -24,7 +24,7 @@ public class BasketDialogFragment extends DialogFragment implements DialogInterf
 
     public BasketDialogFragment()
     {
-        mBasket = new Basket(0, "");
+        mBasket = new Basket("");
     }
 
     public void setPresenter(BasketListPresenter presenter)

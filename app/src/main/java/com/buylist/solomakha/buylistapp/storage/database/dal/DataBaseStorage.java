@@ -1,17 +1,16 @@
+/*
 package com.buylist.solomakha.buylistapp.storage.database.dal;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
+import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.db.model.Category;
+import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.db.model.Unit;
 import com.buylist.solomakha.buylistapp.storage.database.DataBaseHelper;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
-import com.buylist.solomakha.buylistapp.storage.database.entities.BasketProduct;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Category;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Product;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Unit;
 import com.buylist.solomakha.buylistapp.storage.database.tables.BasketsProductsTable;
 import com.buylist.solomakha.buylistapp.storage.database.tables.BasketsTable;
 import com.buylist.solomakha.buylistapp.storage.database.tables.CategoriesTable;
@@ -23,11 +22,11 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
+*/
 /**
  * Created by asolomakha on 1/4/2016.
- */
+ *//*
+
 public class DataBaseStorage implements Storage
 {
     DataBaseHelper dbHelper;
@@ -454,3 +453,4 @@ public class DataBaseStorage implements Storage
     }
 
 }
+*/

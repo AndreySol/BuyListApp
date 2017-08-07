@@ -2,8 +2,6 @@ package com.buylist.solomakha.buylistapp.storage.database.tables;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.buylist.solomakha.buylistapp.storage.database.entities.Category;
-
 /**
  * Created by asolomakha on 1/3/2016.
  */

@@ -1,7 +1,7 @@
 package com.buylist.solomakha.buylistapp.mvp.presentors;
 
+import com.buylist.solomakha.buylistapp.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
-import com.buylist.solomakha.buylistapp.storage.database.entities.Basket;
 
 /**
  * Created by asolomakha on 3/22/2017.
@@ -13,7 +13,7 @@ public interface BasketListPresenter
 
     void loadBasketList(boolean showProgress);
 
-    void deleteBasket(long id, boolean showProgress);
+    void deleteBasket(Basket basket, boolean showProgress);
 
     void editBasket(Basket basket, boolean showProgress);
 
