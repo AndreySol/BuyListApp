@@ -7,7 +7,6 @@ import com.buylist.solomakha.buylistapp.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.models.BasketListModel;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +25,7 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Inject
     BasketListModel basketListModel;
 
-    private WeakReference<BasketListView> basketListView;
+    private BasketListView basketListView;
 
     public BasketListPresenterImpl()
     {
@@ -35,16 +34,15 @@ public class BasketListPresenterImpl implements BasketListPresenter
 
     public void setView(BasketListView view)
     {
-        basketListView = new WeakReference<>(view);
+        basketListView = view;
     }
 
     @Override
     public void loadBasketList(final boolean showProgress)
     {
-        Logger.getLogger("TestLogger").log(Level.INFO, "loadBasketList");
-        if (showProgress)
+        if (showProgress && hasBasketView())
         {
-            basketListView.get().showProgress(true);
+            basketListView.showProgress(true);
             Logger.getLogger("TestOrCh").log(Level.INFO, "showProgress: " + basketListView);
         }
 
@@ -56,23 +54,28 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void onSuccess(List<Basket> value)
                     {
-                        Logger.getLogger("TestLogger").log(Level.INFO, "onSuccess: " + value.size());
                         Log.i("TestRx", "subscribe Thread: " + Thread.currentThread().getId());
-                        basketListView.get().showBasketList(value);
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
-                            Logger.getLogger("TestOrCh").log(Level.INFO, "closeProgress: " + basketListView);
+                            basketListView.showBasketList(value);
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                                Logger.getLogger("TestOrCh").log(Level.INFO, "closeProgress: " + basketListView);
+                            }
                         }
                     }
 
                     @Override
                     public void onError(Throwable error)
                     {
-                        basketListView.get().showError(error.getMessage());
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
+                            basketListView.showError(error.getMessage());
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                            }
                         }
                     }
                 });
@@ -81,9 +84,9 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Override
     public void deleteBasket(Basket basket, final boolean showProgress)
     {
-        if (showProgress)
+        if (showProgress && hasBasketView())
         {
-            basketListView.get().showProgress(true);
+            basketListView.showProgress(true);
         }
         Single.concat(basketListModel.deleteBasket(basket), basketListModel.getBasketList())
                 .subscribeOn(Schedulers.io())
@@ -94,10 +97,13 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void call(Object o)
                     {
-                        basketListView.get().showBasketList((List<Basket>) o);
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
+                            basketListView.showBasketList((List<Basket>) o);
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                            }
                         }
                     }
                 });
@@ -106,9 +112,9 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Override
     public void editBasket(Basket basket, final boolean showProgress)
     {
-        if (showProgress)
+        if (showProgress && hasBasketView())
         {
-            basketListView.get().showProgress(true);
+            basketListView.showProgress(true);
         }
 
         Single.concat(basketListModel.editBasket(basket), basketListModel.getBasketList())
@@ -125,17 +131,23 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void onError(Throwable e)
                     {
-                        basketListView.get().showError("Cannot edit basket: " + e.getMessage());
+                        if (hasBasketView())
+                        {
+                            basketListView.showError("Cannot edit basket: " + e.getMessage());
+                        }
                     }
 
                     @Override
                     public void onNext(Object o)
                     {
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                            }
+                            basketListView.showBasketList((List<Basket>) o);
                         }
-                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
     }
@@ -143,9 +155,9 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Override
     public void fillDbWithTestValues(final boolean showProgress)
     {
-        if (showProgress)
+        if (showProgress && hasBasketView())
         {
-            basketListView.get().showProgress(true);
+            basketListView.showProgress(true);
         }
         Single.concat(basketListModel.createTestValues(), basketListModel.getBasketList())
                 .subscribeOn(Schedulers.io())
@@ -156,11 +168,14 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void call(Object o)
                     {
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                            }
+                            basketListView.showBasketList((List<Basket>) o);
                         }
-                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
     }
@@ -168,9 +183,9 @@ public class BasketListPresenterImpl implements BasketListPresenter
     @Override
     public void createBasket(String basketName, final boolean showProgress)
     {
-        if (showProgress)
+        if (showProgress && hasBasketView())
         {
-            basketListView.get().showProgress(true);
+            basketListView.showProgress(true);
         }
         Single.concat(basketListModel.createBasket(basketName), basketListModel.getBasketList())
                 .subscribeOn(Schedulers.io())
@@ -181,30 +196,47 @@ public class BasketListPresenterImpl implements BasketListPresenter
                     @Override
                     public void call(Object o)
                     {
-                        if (showProgress)
+                        if (hasBasketView())
                         {
-                            basketListView.get().showProgress(false);
+                            if (showProgress)
+                            {
+                                basketListView.showProgress(false);
+                            }
+                            basketListView.showBasketList((List<Basket>) o);
                         }
-                        basketListView.get().showBasketList((List<Basket>) o);
                     }
                 });
     }
 
     @Override
-    public void openProductsInBasket(long basketId)
+    public void openProductsByBasketId(long basketId)
     {
-        basketListView.get().showProductsByBasket(basketId);
+        if (hasBasketView())
+        {
+            basketListView.showProductsByBasket(basketId);
+        }
     }
 
     @Override
     public void openCreateBasketDialog()
     {
-        basketListView.get().showCreateBasketDialog();
+        if (hasBasketView())
+        {
+            basketListView.showCreateBasketDialog();
+        }
     }
 
     @Override
     public void openEditBasketDialog(Basket basket)
     {
-        basketListView.get().showEditBasketDialog(basket);
+        if (hasBasketView())
+        {
+            basketListView.showEditBasketDialog(basket);
+        }
+    }
+
+    private boolean hasBasketView()
+    {
+        return basketListView != null;
     }
 }

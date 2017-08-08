@@ -21,7 +21,7 @@ public interface BasketListPresenter
 
     void createBasket(String basketName, boolean showProgress);
 
-    void openProductsInBasket(long basketId);
+    void openProductsByBasketId(long basketId);
 
     void openCreateBasketDialog();
 

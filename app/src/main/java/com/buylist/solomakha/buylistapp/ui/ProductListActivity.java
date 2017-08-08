@@ -14,30 +14,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.buylist.solomakha.buylistapp.MainApp;
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.db.model.Category;
 import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.db.model.Unit;
-import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
+import com.buylist.solomakha.buylistapp.mvp.models.ProductListModel;
+import com.buylist.solomakha.buylistapp.mvp.presentors.ProductListPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.ProductListPresenterImpl;
 import com.buylist.solomakha.buylistapp.ui.adapter.ExpandableRecyclerListAdapter;
 import com.buylist.solomakha.buylistapp.ui.helper.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-public class ProductListActivity extends AppCompatActivity
+public class ProductListActivity extends AppCompatActivity implements ProductListModel
 {
+    public static final String BASKET_ID_BUNDLE = "BasketId";
     private RecyclerView mRecyclerView;
     private ExpandableRecyclerListAdapter mExpandableRecyclerListAdapter;
     private long basketId;
 
-    private ItemTouchHelper mTouchHelper;
+    private ProductListPresenter presenter;
 
-    @Inject
-    Storage mStorage;
+    private ItemTouchHelper mTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,9 +44,9 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        MainApp.getComponent().inject(this);
+        presenter = new ProductListPresenterImpl(this);
 
-        basketId = getIntent().getLongExtra("Id", -1);
+        basketId = getIntent().getLongExtra(BASKET_ID_BUNDLE, -1);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.product_list_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -84,7 +83,6 @@ public class ProductListActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        refreshList();
     }
 
     private void showAddProductDialog()
@@ -144,14 +142,13 @@ public class ProductListActivity extends AppCompatActivity
         builder.show();
     }
 
-    private void refreshList()
+    @Override
+    public void showProductList(List<Product> productList)
     {
-        List<Product> productList = mStorage.getProductsFromBasket(basketId);
-
         List<ExpandableRecyclerListAdapter.Item> items = new ArrayList<>();
         List<String> categories = new ArrayList<>();
 
-        for (Product product : productList)
+        /*for (Product product : productList)
         {
 
             Category category = mStorage.getCategoryById(product.getCategoryId());
@@ -178,7 +175,7 @@ public class ProductListActivity extends AppCompatActivity
                     items.add(childItem);
                 }
             }
-        }
+        }*/
         mExpandableRecyclerListAdapter.refreshList(items);
     }
 }

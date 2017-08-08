@@ -75,7 +75,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
                 @Override
                 public void onClick(View v)
                 {
-                    mPresenter.openProductsInBasket(mItems.get(getAdapterPosition()).getId());
+                    mPresenter.openProductsByBasketId(mItems.get(getAdapterPosition()).getId());
                 }
             });
         }

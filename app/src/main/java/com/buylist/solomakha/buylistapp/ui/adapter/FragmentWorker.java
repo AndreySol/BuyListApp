@@ -3,7 +3,6 @@ package com.buylist.solomakha.buylistapp.ui.adapter;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenterImpl;
@@ -22,6 +21,13 @@ public class FragmentWorker extends Fragment
     {
         super.onAttach(context);
         mPresenter.setView((BasketListActivity) context);
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        mPresenter.setView(null);
     }
 
     @Override

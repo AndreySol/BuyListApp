@@ -86,7 +86,6 @@ public class RoomDatabase implements Storage
     @Override
     public List<Basket> getBaskets()
     {
-        Logger.getLogger("TestLogger").log(Level.INFO, "getBaskets");
         return database.basketDao().getAll();
     }
 

@@ -21,8 +21,6 @@ import com.buylist.solomakha.buylistapp.ui.adapter.FragmentWorker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_DELETE_ID;
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_EDIT_ID;
@@ -52,15 +50,11 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
 
         mPresenter = fragmentWorker.getPresenter();
 
-        Logger.getLogger("TestLogger").log(Level.INFO, "" + mPresenter);
-
         BasketListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.basket_list_activity);
         binding.setViewModel(new BasketListViewModel(mPresenter));
         initListView(binding.basketRecyclerList);
 
         initProgressDialog();
-
-        Logger.getLogger("TestLogger").log(Level.INFO, "onCreate");
     }
 
     private void initListView(RecyclerView recyclerView)
@@ -82,8 +76,6 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
     protected void onResume()
     {
         super.onResume();
-
-        Logger.getLogger("TestLogger").log(Level.INFO, "onResume");
         if (mInProgress)
         {
             showProgress(true);
@@ -97,7 +89,6 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
     @Override
     public void showBasketList(List<Basket> basketList)
     {
-        Logger.getLogger("TestLogger").log(Level.INFO, "showBasketList");
         mBasketList = basketList;
         // Refresh listView
         mBasketAdapter.refresh(mBasketList);
@@ -119,7 +110,7 @@ public class BasketListActivity extends LifecycleActivity implements BasketListV
     @Override
     public void showProductsByBasket(long basketId)
     {
-        startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtra("Id", basketId));
+        startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtra(ProductListActivity.BASKET_ID_BUNDLE, basketId));
     }
 
     @Override
