@@ -8,7 +8,7 @@ import java.util.List;
  * Created by asolomakha on 3/22/2017.
  */
 
-public interface BasketListView
+public interface BasketView
 {
     void showBasketList(List<Basket> basketList);
 

@@ -1,40 +1,32 @@
 package com.buylist.solomakha.buylistapp.ui;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.db.model.Category;
 import com.buylist.solomakha.buylistapp.db.model.Product;
-import com.buylist.solomakha.buylistapp.db.model.Unit;
-import com.buylist.solomakha.buylistapp.mvp.models.ProductListModel;
-import com.buylist.solomakha.buylistapp.mvp.presentors.ProductListPresenter;
-import com.buylist.solomakha.buylistapp.mvp.presentors.ProductListPresenterImpl;
+import com.buylist.solomakha.buylistapp.mvp.presentors.ProductPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.impl.ProductPresenterImpl;
+import com.buylist.solomakha.buylistapp.mvp.views.ProductView;
 import com.buylist.solomakha.buylistapp.ui.adapter.ExpandableRecyclerListAdapter;
 import com.buylist.solomakha.buylistapp.ui.helper.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductListActivity extends AppCompatActivity implements ProductListModel
+public class ProductListActivity extends AppCompatActivity implements ProductView
 {
     public static final String BASKET_ID_BUNDLE = "BasketId";
     private RecyclerView mRecyclerView;
     private ExpandableRecyclerListAdapter mExpandableRecyclerListAdapter;
     private long basketId;
 
-    private ProductListPresenter presenter;
+    private ProductPresenter presenter;
 
     private ItemTouchHelper mTouchHelper;
 
@@ -44,7 +36,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        presenter = new ProductListPresenterImpl(this);
+        presenter = new ProductPresenterImpl(this);
 
         basketId = getIntent().getLongExtra(BASKET_ID_BUNDLE, -1);
 
@@ -80,6 +72,13 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     }
 
     @Override
+    protected void onStart()
+    {
+        super.onStart();
+        presenter.loadProductsByBasketId(basketId);
+    }
+
+    @Override
     protected void onResume()
     {
         super.onResume();
@@ -87,7 +86,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
 
     private void showAddProductDialog()
     {
-        LayoutInflater inflater = this.getLayoutInflater();
+       /* LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.add_product_dialog, null);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ProductListActivity.this);
@@ -139,11 +138,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             }
         });
 
-        builder.show();
+        builder.show();*/
     }
 
     @Override
-    public void showProductList(List<Product> productList)
+    public void showProductsByBasketId(List<Product> productList)
     {
         List<ExpandableRecyclerListAdapter.Item> items = new ArrayList<>();
         List<String> categories = new ArrayList<>();

@@ -2,8 +2,8 @@ package com.buylist.solomakha.buylistapp.dagger.module;
 
 import android.content.Context;
 
-import com.buylist.solomakha.buylistapp.mvp.models.BasketListModel;
-import com.buylist.solomakha.buylistapp.mvp.models.BasketListModelImpl;
+import com.buylist.solomakha.buylistapp.mvp.models.BasketModel;
+import com.buylist.solomakha.buylistapp.mvp.models.impl.BasketModelImpl;
 
 import javax.inject.Singleton;
 
@@ -23,8 +23,8 @@ public class BasketModule
 
     @Provides
     @Singleton
-    BasketListModel provideBasketListModel()
+    BasketModel provideBasketListModel()
     {
-        return new BasketListModelImpl();
+        return new BasketModelImpl();
     }
 }

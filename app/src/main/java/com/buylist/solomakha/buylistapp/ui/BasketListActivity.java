@@ -14,8 +14,8 @@ import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketListViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketListActivityBinding;
 import com.buylist.solomakha.buylistapp.db.model.Basket;
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
-import com.buylist.solomakha.buylistapp.mvp.views.BasketListView;
+import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
+import com.buylist.solomakha.buylistapp.mvp.views.BasketView;
 import com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter;
 import com.buylist.solomakha.buylistapp.ui.adapter.FragmentWorker;
 
@@ -25,14 +25,14 @@ import java.util.List;
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_DELETE_ID;
 import static com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter.MENU_CONTEXT_EDIT_ID;
 
-public class BasketListActivity extends LifecycleActivity implements BasketListView
+public class BasketListActivity extends LifecycleActivity implements BasketView
 {
     private static final String LOG_TAG = "myLogs";
 
     private BasketAdapter mBasketAdapter;
     private List<Basket> mBasketList = new ArrayList<>();
 
-    private BasketListPresenter mPresenter;
+    private BasketPresenter mPresenter;
 
     private ProgressDialog progressDialog;
     private boolean mInProgress;

@@ -4,11 +4,13 @@ import com.buylist.solomakha.buylistapp.db.model.Product;
 
 import java.util.List;
 
+import rx.Single;
+
 /**
  * Created by asolomakha on 8/8/2017.
  */
 
-public interface ProductListModel
+public interface ProductModel
 {
-    void showProductList(List<Product> productList);
+    Single<List<Product>> getProductsFromBasket(long basketId);
 }

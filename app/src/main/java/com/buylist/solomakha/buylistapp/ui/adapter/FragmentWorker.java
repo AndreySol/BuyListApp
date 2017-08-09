@@ -4,8 +4,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenterImpl;
+import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.impl.BasketPresenterImpl;
 import com.buylist.solomakha.buylistapp.ui.BasketListActivity;
 
 /**
@@ -14,7 +14,7 @@ import com.buylist.solomakha.buylistapp.ui.BasketListActivity;
 
 public class FragmentWorker extends Fragment
 {
-    private BasketListPresenter mPresenter = new BasketListPresenterImpl();
+    private BasketPresenter mPresenter = new BasketPresenterImpl();
 
     @Override
     public void onAttach(Context context)
@@ -37,7 +37,7 @@ public class FragmentWorker extends Fragment
         setRetainInstance(true);
     }
 
-    public BasketListPresenter getPresenter()
+    public BasketPresenter getPresenter()
     {
         return mPresenter;
     }

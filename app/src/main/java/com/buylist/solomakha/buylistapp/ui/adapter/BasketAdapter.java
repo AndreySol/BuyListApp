@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.db.model.Basket;
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
 {
     private ArrayList<Basket> mItems;
     private LayoutInflater mInflater;
-    private BasketListPresenter mPresenter;
+    private BasketPresenter mPresenter;
 
     public static final int MENU_CONTEXT_EDIT_ID = 0;
     public static final int MENU_CONTEXT_DELETE_ID = 1;
 
-    public BasketAdapter(Context context, BasketListPresenter presenter)
+    public BasketAdapter(Context context, BasketPresenter presenter)
     {
         mItems = new ArrayList<>();
         mPresenter = presenter;

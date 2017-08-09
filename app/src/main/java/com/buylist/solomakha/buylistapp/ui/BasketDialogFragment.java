@@ -12,11 +12,11 @@ import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketDialogBinding;
 import com.buylist.solomakha.buylistapp.db.model.Basket;
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 
 public class BasketDialogFragment extends DialogFragment implements DialogInterface.OnClickListener
 {
-    private BasketListPresenter mPresenter;
+    private BasketPresenter mPresenter;
     private Basket mBasket;
     private boolean editAction;
 
@@ -27,7 +27,7 @@ public class BasketDialogFragment extends DialogFragment implements DialogInterf
         mBasket = new Basket("");
     }
 
-    public void setPresenter(BasketListPresenter presenter)
+    public void setPresenter(BasketPresenter presenter)
     {
         this.mPresenter = presenter;
     }

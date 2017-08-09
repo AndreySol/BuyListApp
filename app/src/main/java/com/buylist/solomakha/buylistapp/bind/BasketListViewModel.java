@@ -2,7 +2,7 @@ package com.buylist.solomakha.buylistapp.bind;
 
 import android.databinding.BaseObservable;
 
-import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
+import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 
 /**
  * Created by asolomakha on 4/6/2017.
@@ -10,9 +10,9 @@ import com.buylist.solomakha.buylistapp.mvp.presentors.BasketListPresenter;
 
 public class BasketListViewModel extends BaseObservable
 {
-    private BasketListPresenter mPresenter;
+    private BasketPresenter mPresenter;
 
-    public BasketListViewModel(BasketListPresenter mPresenter)
+    public BasketListViewModel(BasketPresenter mPresenter)
     {
         this.mPresenter = mPresenter;
     }

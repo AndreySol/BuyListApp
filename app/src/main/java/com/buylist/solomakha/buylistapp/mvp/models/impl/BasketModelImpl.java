@@ -1,10 +1,9 @@
-package com.buylist.solomakha.buylistapp.mvp.models;
+package com.buylist.solomakha.buylistapp.mvp.models.impl;
 
 import com.buylist.solomakha.buylistapp.MainApp;
 import com.buylist.solomakha.buylistapp.db.model.Basket;
-import com.buylist.solomakha.buylistapp.db.model.Category;
 import com.buylist.solomakha.buylistapp.db.model.Product;
-import com.buylist.solomakha.buylistapp.db.model.Unit;
+import com.buylist.solomakha.buylistapp.mvp.models.BasketModel;
 import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
 
 import java.util.List;
@@ -18,12 +17,12 @@ import rx.Single;
  * Created by asolomakha on 3/22/2017.
  */
 
-public class BasketListModelImpl implements BasketListModel
+public class BasketModelImpl implements BasketModel
 {
     @Inject
     Storage storage;
 
-    public BasketListModelImpl()
+    public BasketModelImpl()
     {
         MainApp.getComponent().inject(this);
     }

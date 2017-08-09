@@ -11,15 +11,15 @@ import rx.Single;
  * Created by asolomakha on 3/22/2017.
  */
 
-public interface BasketListModel
+public interface BasketModel
 {
-    Single<List<Basket>> getBasketList();
+    Single<Long> createBasket(String basketName);
 
-    Single<Integer> deleteBasket(Basket basket);
+    Single<List<Basket>> getBasketList();
 
     Single<Integer> editBasket(Basket basket);
 
-    Single<Boolean> createTestValues();
+    Single<Integer> deleteBasket(Basket basket);
 
-    Single<Long> createBasket(String basketName);
+    Single<Boolean> createTestValues();
 }
