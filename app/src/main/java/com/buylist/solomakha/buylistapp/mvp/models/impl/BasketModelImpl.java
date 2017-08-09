@@ -1,10 +1,10 @@
 package com.buylist.solomakha.buylistapp.mvp.models.impl;
 
 import com.buylist.solomakha.buylistapp.MainApp;
-import com.buylist.solomakha.buylistapp.db.model.Basket;
-import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.Storage;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Product;
 import com.buylist.solomakha.buylistapp.mvp.models.BasketModel;
-import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
 
 import java.util.List;
 import java.util.concurrent.Callable;

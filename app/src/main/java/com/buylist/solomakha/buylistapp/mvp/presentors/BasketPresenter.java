@@ -1,6 +1,6 @@
 package com.buylist.solomakha.buylistapp.mvp.presentors;
 
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketView;
 
 /**

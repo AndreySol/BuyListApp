@@ -1,6 +1,6 @@
 package com.buylist.solomakha.buylistapp.mvp.views;
 
-import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface ProductView
 {
-    void showProductsByBasketId(List<Product> productList);
+    void showProductsByBasketId(List<ProductEmbedded> productList);
 }

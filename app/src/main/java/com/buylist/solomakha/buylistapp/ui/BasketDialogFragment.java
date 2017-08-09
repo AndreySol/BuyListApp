@@ -11,7 +11,7 @@ import android.view.View;
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketDialogBinding;
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 
 public class BasketDialogFragment extends DialogFragment implements DialogInterface.OnClickListener

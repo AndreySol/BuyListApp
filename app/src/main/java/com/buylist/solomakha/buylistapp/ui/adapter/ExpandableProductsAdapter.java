@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;

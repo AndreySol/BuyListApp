@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import com.buylist.solomakha.buylistapp.mvp.models.impl.BasketModelImpl;
 import com.buylist.solomakha.buylistapp.mvp.models.impl.ProductModelImpl;
 import com.buylist.solomakha.buylistapp.mvp.presentors.impl.BasketPresenterImpl;
 import com.buylist.solomakha.buylistapp.mvp.presentors.impl.ProductPresenterImpl;
-import com.buylist.solomakha.buylistapp.storage.database.dal.RoomDatabase;
+import com.buylist.solomakha.buylistapp.storage.db.RoomDatabase;
 
 import javax.inject.Singleton;
 

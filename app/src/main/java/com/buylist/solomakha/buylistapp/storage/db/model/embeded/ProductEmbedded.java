@@ -1,17 +1,15 @@
-package com.buylist.solomakha.buylistapp.db.dao.embeded;
+package com.buylist.solomakha.buylistapp.storage.db.model.embeded;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
 
-import com.buylist.solomakha.buylistapp.db.model.Category;
-import com.buylist.solomakha.buylistapp.db.model.Product;
-import com.buylist.solomakha.buylistapp.db.model.Unit;
+import com.buylist.solomakha.buylistapp.storage.db.model.Category;
+import com.buylist.solomakha.buylistapp.storage.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.Unit;
 
 import java.util.List;
 
-import okhttp3.internal.Util;
-
-public class ProductCategory
+public class ProductEmbedded
 {
     @Embedded
     public Product product;

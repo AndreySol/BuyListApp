@@ -2,10 +2,9 @@ package com.buylist.solomakha.buylistapp.dagger.module;
 
 import android.content.Context;
 
-import com.buylist.solomakha.buylistapp.db.AppDatabase;
-import com.buylist.solomakha.buylistapp.storage.database.DataBaseHelper;
-import com.buylist.solomakha.buylistapp.storage.database.dal.RoomDatabase;
-import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
+import com.buylist.solomakha.buylistapp.storage.Storage;
+import com.buylist.solomakha.buylistapp.storage.db.AppDatabase;
+import com.buylist.solomakha.buylistapp.storage.db.RoomDatabase;
 
 import javax.inject.Singleton;
 

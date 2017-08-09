@@ -1,6 +1,6 @@
 package com.buylist.solomakha.buylistapp.mvp.views;
 
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface BasketView
 
     void showMessage(String message);
 
-    void showProductsByBasket(long basketId);
+    void showProductsByBasketId(long basketId);
 
     void showProgress(boolean show);
 

@@ -1,10 +1,10 @@
-package com.buylist.solomakha.buylistapp.db.dao.embeded;
+package com.buylist.solomakha.buylistapp.storage.db.model.embeded;
 
 import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Relation;
 
-import com.buylist.solomakha.buylistapp.db.model.BasketProduct;
-import com.buylist.solomakha.buylistapp.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.BasketProduct;
+import com.buylist.solomakha.buylistapp.storage.db.model.Product;
 
 import java.util.List;
 

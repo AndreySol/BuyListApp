@@ -1,10 +1,10 @@
 package com.buylist.solomakha.buylistapp.mvp.presentors.impl;
 
 import com.buylist.solomakha.buylistapp.MainApp;
-import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.mvp.models.ProductModel;
 import com.buylist.solomakha.buylistapp.mvp.presentors.ProductPresenter;
 import com.buylist.solomakha.buylistapp.mvp.views.ProductView;
+import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 
 import java.util.List;
 
@@ -37,10 +37,10 @@ public class ProductPresenterImpl implements ProductPresenter
         model.getProductsFromBasket(basketId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleSubscriber<List<Product>>()
+                .subscribe(new SingleSubscriber<List<ProductEmbedded>>()
                 {
                     @Override
-                    public void onSuccess(List<Product> value)
+                    public void onSuccess(List<ProductEmbedded> value)
                     {
                         view.showProductsByBasketId(value);
                     }

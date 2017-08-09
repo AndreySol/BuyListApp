@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.mvp.presentors.ProductPresenter;
 import com.buylist.solomakha.buylistapp.mvp.presentors.impl.ProductPresenterImpl;
 import com.buylist.solomakha.buylistapp.mvp.views.ProductView;
+import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 import com.buylist.solomakha.buylistapp.ui.adapter.ExpandableRecyclerListAdapter;
 import com.buylist.solomakha.buylistapp.ui.helper.SimpleItemTouchHelperCallback;
 
@@ -142,7 +142,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
     }
 
     @Override
-    public void showProductsByBasketId(List<Product> productList)
+    public void showProductsByBasketId(List<ProductEmbedded> productList)
     {
         List<ExpandableRecyclerListAdapter.Item> items = new ArrayList<>();
         List<String> categories = new ArrayList<>();

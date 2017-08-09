@@ -1,7 +1,7 @@
 package com.buylist.solomakha.buylistapp.mvp.models;
 
 
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 
 import java.util.List;
 

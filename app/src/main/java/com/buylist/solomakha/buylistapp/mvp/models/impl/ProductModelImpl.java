@@ -1,9 +1,9 @@
 package com.buylist.solomakha.buylistapp.mvp.models.impl;
 
 import com.buylist.solomakha.buylistapp.MainApp;
-import com.buylist.solomakha.buylistapp.db.model.Product;
 import com.buylist.solomakha.buylistapp.mvp.models.ProductModel;
-import com.buylist.solomakha.buylistapp.storage.database.dal.Storage;
+import com.buylist.solomakha.buylistapp.storage.Storage;
+import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -11,10 +11,6 @@ import java.util.concurrent.Callable;
 import javax.inject.Inject;
 
 import rx.Single;
-
-/**
- * Created by asolomakha on 8/8/2017.
- */
 
 public class ProductModelImpl implements ProductModel
 {
@@ -27,14 +23,14 @@ public class ProductModelImpl implements ProductModel
     }
 
     @Override
-    public Single<List<Product>> getProductsFromBasket(final long basketId)
+    public Single<List<ProductEmbedded>> getProductsFromBasket(final long basketId)
     {
-        return Single.fromCallable(new Callable<List<Product>>()
+        return Single.fromCallable(new Callable<List<ProductEmbedded>>()
         {
             @Override
-            public List<Product> call() throws Exception
+            public List<ProductEmbedded> call() throws Exception
             {
-                return storage.getProductsFromBasket(basketId);
+                return storage.getProductsFromBasketId(basketId);
             }
         });
     }

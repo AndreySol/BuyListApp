@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.bind.BasketListViewModel;
 import com.buylist.solomakha.buylistapp.databinding.BasketListActivityBinding;
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketView;
 import com.buylist.solomakha.buylistapp.ui.adapter.BasketAdapter;
@@ -108,7 +108,7 @@ public class BasketListActivity extends LifecycleActivity implements BasketView
     }
 
     @Override
-    public void showProductsByBasket(long basketId)
+    public void showProductsByBasketId(long basketId)
     {
         startActivity(new Intent(getApplicationContext(), ProductListActivity.class).putExtra(ProductListActivity.BASKET_ID_BUNDLE, basketId));
     }

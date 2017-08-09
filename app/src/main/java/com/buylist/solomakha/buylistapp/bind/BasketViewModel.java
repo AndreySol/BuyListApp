@@ -2,7 +2,7 @@ package com.buylist.solomakha.buylistapp.bind;
 
 import android.databinding.BaseObservable;
 
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 
 /**
  * Created by asolomakha on 3/30/2017.

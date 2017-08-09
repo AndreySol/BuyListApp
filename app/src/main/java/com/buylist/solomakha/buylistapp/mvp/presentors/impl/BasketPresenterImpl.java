@@ -3,7 +3,7 @@ package com.buylist.solomakha.buylistapp.mvp.presentors.impl;
 import android.util.Log;
 
 import com.buylist.solomakha.buylistapp.MainApp;
-import com.buylist.solomakha.buylistapp.db.model.Basket;
+import com.buylist.solomakha.buylistapp.storage.db.model.Basket;
 import com.buylist.solomakha.buylistapp.mvp.models.BasketModel;
 import com.buylist.solomakha.buylistapp.mvp.presentors.BasketPresenter;
 import com.buylist.solomakha.buylistapp.mvp.views.BasketView;
@@ -214,7 +214,7 @@ public class BasketPresenterImpl implements BasketPresenter
     {
         if (hasBasketView())
         {
-            basketView.showProductsByBasket(basketId);
+            basketView.showProductsByBasketId(basketId);
         }
     }
 

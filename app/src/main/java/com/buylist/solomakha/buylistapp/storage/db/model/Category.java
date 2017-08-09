@@ -1,4 +1,4 @@
-package com.buylist.solomakha.buylistapp.db.model;
+package com.buylist.solomakha.buylistapp.storage.db.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
