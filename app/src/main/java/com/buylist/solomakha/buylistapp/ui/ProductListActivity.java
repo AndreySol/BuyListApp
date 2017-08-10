@@ -1,17 +1,26 @@
 package com.buylist.solomakha.buylistapp.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.buylist.solomakha.buylistapp.R;
 import com.buylist.solomakha.buylistapp.mvp.presentors.ProductPresenter;
 import com.buylist.solomakha.buylistapp.mvp.presentors.impl.ProductPresenterImpl;
 import com.buylist.solomakha.buylistapp.mvp.views.ProductView;
+import com.buylist.solomakha.buylistapp.storage.db.model.Category;
+import com.buylist.solomakha.buylistapp.storage.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.Unit;
 import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 import com.buylist.solomakha.buylistapp.ui.adapter.ExpandableRecyclerListAdapter;
 import com.buylist.solomakha.buylistapp.ui.helper.SimpleItemTouchHelperCallback;
@@ -86,14 +95,14 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
 
     private void showAddProductDialog()
     {
-       /* LayoutInflater inflater = this.getLayoutInflater();
+        /*LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.add_product_dialog, null);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ProductListActivity.this);
-        builder.setTitle("Add product");
+        builder.setTitle("Add productEmbedded");
         builder.setView(dialogView);
 
-        List<Unit> unitList = mStorage.getUnits();
+        List<Unit> unitList = presenter.getUnits();
         ArrayAdapter<Unit> unityAdapter = new ArrayAdapter<Unit>(this, android.R.layout.simple_spinner_item, unitList);
         unityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         final Spinner quantitySpinner = (Spinner) dialogView.findViewById(R.id.product_quantity_spinner);
@@ -147,13 +156,11 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
         List<ExpandableRecyclerListAdapter.Item> items = new ArrayList<>();
         List<String> categories = new ArrayList<>();
 
-        /*for (Product product : productList)
+        for (ProductEmbedded productEmbedded : productList)
         {
-
-            Category category = mStorage.getCategoryById(product.getCategoryId());
-            if (!categories.contains(category.getName()))
+            if (!categories.contains(productEmbedded.categories.get(0).getName()))
             {
-                categories.add(category.getName());
+                categories.add(productEmbedded.categories.get(0).getName());
             }
         }
 
@@ -163,18 +170,17 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
             headerItem.type = ExpandableRecyclerListAdapter.HEADER;
             headerItem.categoryTitle = category;
             items.add(headerItem);
-            for (Product product : productList)
+            for (ProductEmbedded productEmbedded : productList)
             {
-                Category productCategory = mStorage.getCategoryById(product.getCategoryId());
-                if (category.equals(productCategory.getName()))
+                if (category.equals(productEmbedded.categories.get(0).getName()))
                 {
                     ExpandableRecyclerListAdapter.Item childItem = new ExpandableRecyclerListAdapter.Item();
                     childItem.type = ExpandableRecyclerListAdapter.CHILD;
-                    childItem.product = product;
+                    childItem.productEmbedded = productEmbedded;
                     items.add(childItem);
                 }
             }
-        }*/
+        }
         mExpandableRecyclerListAdapter.refreshList(items);
     }
 }

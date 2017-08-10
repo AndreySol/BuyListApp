@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.buylist.solomakha.buylistapp.R;
-import com.buylist.solomakha.buylistapp.storage.db.model.Product;
+import com.buylist.solomakha.buylistapp.storage.db.model.embeded.ProductEmbedded;
 import com.buylist.solomakha.buylistapp.ui.helper.OnSwipeListener;
 
 import java.util.ArrayList;
@@ -80,8 +80,8 @@ public class ExpandableRecyclerListAdapter extends RecyclerView.Adapter<Recycler
                 break;
             case CHILD:
                 ChildViewHolder childViewHolder = (ChildViewHolder) holder;
-                childViewHolder.mNameTextView.setText(item.product.getName());
-                childViewHolder.mQuantityView.setText(String.valueOf(item.product.getQuantity()));
+                childViewHolder.mNameTextView.setText(item.productEmbedded.product.getName());
+                childViewHolder.mQuantityView.setText(String.valueOf(item.productEmbedded.product.getQuantity()));
                 break;
         }
     }
@@ -170,6 +170,6 @@ public class ExpandableRecyclerListAdapter extends RecyclerView.Adapter<Recycler
     {
         public int type;
         public String categoryTitle;
-        public Product product;
+        public ProductEmbedded productEmbedded;
     }
 }

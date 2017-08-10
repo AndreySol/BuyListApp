@@ -26,7 +26,7 @@ public interface BasketProductDao
     @Delete
     void delete(BasketProduct basket);
 
-    //@Query("SELECT * FROM product WHERE basketId == :basketId")
-    @Query("SELECT * FROM product JOIN basketProduct.basketId == :basketId")
+    //@Query("SELECT * FROM productEmbedded WHERE basketId == :basketId")
+    @Query("SELECT * FROM basketProduct JOIN product ON basketProduct.productId == product.id WHERE basketProduct.basketId == :basketId")
     List<ProductEmbedded> getProductsByBasketId(long basketId);
 }
