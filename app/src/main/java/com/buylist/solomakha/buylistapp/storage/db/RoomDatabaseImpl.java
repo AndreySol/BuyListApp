@@ -18,15 +18,24 @@ import com.buylist.solomakha.buylistapp.storage.db.model.Unit;
 
 
 @Database(exportSchema = false, entities = {Basket.class, BasketProduct.class, Category.class, Product.class, Unit.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase
+public abstract class RoomDatabaseImpl extends RoomDatabase
 {
-    static AppDatabase INSTANCE;
+    static RoomDatabaseImpl INSTANCE;
 
-    public static AppDatabase getDatabase(Context context)
+    public static RoomDatabaseImpl getDatabase(Context context)
     {
         if (INSTANCE == null)
         {
-            INSTANCE = Room.databaseBuilder(context, AppDatabase.class, "buyDatabase").build();
+            INSTANCE = Room.databaseBuilder(context, RoomDatabaseImpl.class, "buyDatabase").build();
+        }
+        return INSTANCE;
+    }
+
+    public static RoomDatabaseImpl setTestDatabase(Context context)
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = Room.inMemoryDatabaseBuilder(context, RoomDatabaseImpl.class).build();
         }
         return INSTANCE;
     }

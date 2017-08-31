@@ -15,10 +15,10 @@ public class BasketProduct
     private long productId;
     private boolean bought;
 
-    public BasketProduct(Long basketId, Long productId)
+    public BasketProduct(Long productId, Long basketId)
     {
-        this.basketId = basketId;
         this.productId = productId;
+        this.basketId = basketId;
     }
 
     public long getId()

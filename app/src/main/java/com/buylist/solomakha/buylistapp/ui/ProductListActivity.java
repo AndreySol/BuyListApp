@@ -95,59 +95,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
 
     private void showAddProductDialog()
     {
-        /*LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.add_product_dialog, null);
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ProductListActivity.this);
-        builder.setTitle("Add productEmbedded");
-        builder.setView(dialogView);
-
-        List<Unit> unitList = presenter.getUnits();
-        ArrayAdapter<Unit> unityAdapter = new ArrayAdapter<Unit>(this, android.R.layout.simple_spinner_item, unitList);
-        unityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        final Spinner quantitySpinner = (Spinner) dialogView.findViewById(R.id.product_quantity_spinner);
-        quantitySpinner.setAdapter(unityAdapter);
-
-        List<Category> categoryList = mStorage.getCategories();
-        ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, categoryList);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        final Spinner categorySpinner = (Spinner) dialogView.findViewById(R.id.product_category_spinner);
-        categorySpinner.setAdapter(categoryAdapter);
-
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                EditText productNameEditText = (EditText) dialogView.findViewById(R.id.product_name_edittext);
-                EditText productQuantityEditText = (EditText) dialogView.findViewById(R.id.product_quantity_edittext);
-                Unit unit = (Unit) quantitySpinner.getSelectedItem();
-                Category category = (Category) categorySpinner.getSelectedItem();
-
-                Product product = new Product();
-                product.setName(productNameEditText.getText().toString());
-                product.setQuantity(Float.valueOf(productQuantityEditText.getText().toString()));
-                product.setUnitId(unit.getId());
-                product.setCategoryId(category.getId());
-
-                mStorage.createProduct(product);
-                mStorage.assignProductToBasket(basketId, product.getId());
-
-                refreshList();
-                dialog.dismiss();
-            }
-        });
-
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();*/
+        presenter.openAddProductDialog();
     }
 
     @Override
@@ -182,5 +130,12 @@ public class ProductListActivity extends AppCompatActivity implements ProductVie
             }
         }
         mExpandableRecyclerListAdapter.refreshList(items);
+    }
+
+    @Override
+    public void showAddProductDialog(List<Unit> units, List<Category> categories)
+    {
+        ProductDialogFragment dialogFragment = ProductDialogFragment.getInstance(presenter, units, categories);
+        dialogFragment.show(getFragmentManager(), "");
     }
 }

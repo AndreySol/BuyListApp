@@ -14,12 +14,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class RoomDatabase implements Storage
+public class Database implements Storage
 {
     @Inject
-    AppDatabase database;
+    RoomDatabaseImpl database;
 
-    public RoomDatabase()
+    public Database()
     {
         MainApp.getComponent().inject(this);
     }
@@ -91,9 +91,9 @@ public class RoomDatabase implements Storage
     }
 
     @Override
-    public long assignProductToBasket(long basketId, long productId)
+    public long assignProductToBasket(long productId, long basketId)
     {
-        return database.basketProductDao().insert(new BasketProduct(basketId, productId));
+        return database.basketProductDao().insert(new BasketProduct(productId, basketId));
     }
 
     @Override

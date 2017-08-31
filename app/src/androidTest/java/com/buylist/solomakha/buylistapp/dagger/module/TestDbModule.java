@@ -2,9 +2,13 @@ package com.buylist.solomakha.buylistapp.dagger.module;
 
 import android.content.Context;
 
+
+import com.buylist.solomakha.buylistapp.mvp.models.BasketModel;
+import com.buylist.solomakha.buylistapp.mvp.models.impl.BasketModelImpl;
 import com.buylist.solomakha.buylistapp.storage.Storage;
 import com.buylist.solomakha.buylistapp.storage.db.Database;
 import com.buylist.solomakha.buylistapp.storage.db.RoomDatabaseImpl;
+import com.buylist.solomakha.buylistapp.storage.db.TestRoomDatabase;
 
 import javax.inject.Singleton;
 
@@ -13,27 +17,33 @@ import dagger.Provides;
 
 @Module
 @Singleton
-public class DbModule
+public class TestDbModule
 {
     Context context;
 
-    public DbModule(Context context)
+    public TestDbModule(Context context)
     {
         this.context = context;
     }
 
-
     @Provides
     @Singleton
-    Storage provideStorage()
+    Storage provideTestStorage()
     {
         return new Database();
     }
 
     @Provides
     @Singleton
-    RoomDatabaseImpl provideRoomDatabase()
+    RoomDatabaseImpl provideTestRoomDatabase()
     {
-        return RoomDatabaseImpl.getDatabase(context);
+        return TestRoomDatabase.getDatabase(context);
+    }
+
+    @Provides
+    @Singleton
+    BasketModel provideTestBasketModel()
+    {
+        return new BasketModelImpl();
     }
 }

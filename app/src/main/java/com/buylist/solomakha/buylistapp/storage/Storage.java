@@ -33,7 +33,7 @@ public interface Storage
 
     List<ProductEmbedded> getProductsFromBasketId(long basketId);
 
-    long assignProductToBasket(long basketId, long productId);
+    long assignProductToBasket(long productId, long basketId);
 
     long markProductAsBought(long basketId, long productId, boolean bought);
 }
